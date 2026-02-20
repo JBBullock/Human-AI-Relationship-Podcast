@@ -100,7 +100,7 @@
 
     <section class="hero">
         <div class="hero-img">Hero Illustration Placeholder</div>
-        <div class="hero-content">
+        <div class="hero-">
             <h1>Preparing Kids for the AI Future</h1>
             <button class="btn-light trigger-waitlist">Join the Waitlist</button><br>
             <button class="btn-light" id="heroListenBtn">Listen Now</button>
@@ -108,7 +108,7 @@
     </section>
 
     <section class="section-padding" id="episodes">
-        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <div style="display: flex; justify-: space-between; align-items: baseline;">
             <h2>Check Out What's New!</h2>
             <span style="font-size: 2.5rem; opacity: 0.1; font-weight: 800;">Episode Cards</span>
         </div>
@@ -122,17 +122,53 @@
                     <button class="btn-play">▶ Listen Now</button>
                 </div>
             </a>
-            </div>
+            <a href="https://lamobilemechanic.org" target="_blank" class="episode-link">
+                <div class="episode-card">
+                    <h3>AI Tools in Schools</h3>
+                    <span class="duration">35 min</span>
+                    <div class="card-img-placeholder"></div>
+                    <button class="btn-play">▶ Listen Now</button>
+                </div>
+            </a>
+            <a href="https://lamobilemechanic.org" target="_blank" class="episode-link">
+                <div class="episode-card">
+                    <h3>Responsible AI Use</h3>
+                    <span class="duration">28 min</span>
+                    <div class="card-img-placeholder"></div>
+                    <button class="btn-play">▶ Listen Now</button>
+                </div>
+            </a>
+        </div>
+    </section>
+     <section class="section-padding bio-section">
+        <div class="img-placeholder bio-img"> </div>
+        <div class="bio-text">
+            <h2>Meet Dr. Sean D. Young</h2>
+            <p>
+                Dr. Sean D. Young is a UC Irvine professor and <strong>Stanford-trained psychologist</strong> who researches how AI and digital technology shape behavior and learning. He has published over <strong>150 scientific papers</strong> and authored a <strong>#1 Wall Street Journal bestselling book</strong> on behavior change. His work helps parents and educators make informed, practical decisions about technology and children.
+            </p>
+            <a href="#" class="link-arrow">Read Full Bio &rarr;</a>
+        </div>
     </section>
 
-    <footer id="footer">
-        <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="footer-link">
-            Follow The Young & Hungry Podcast on Instagram for the latest updates &rarr;
-        </a>
+    <section class="section-padding mission">
+        <h2>AI is changing childhood faster than most adults feel prepared for.</h2>
+        <h4>We Help You Navigate It With Confidence</h4>
+        <p>Aiming to teach parents and educators how to confidently guide children through the age of AI by translating psychology and research into practical, everyday tools. Each episode delivers clear insights and real strategies to support healthy, responsible, and future-ready technology use.</p>
+    </section>
+    <footer>
+        <a href="https://www.instagram.com/youngandhungryk_12" 
+       target="_blank" 
+       rel="noopener noreferrer"
+        style="font-family: var(--heading-font); font-weight: 700; text-decoration: none; color: var(--dark-blue);">
+        Follow The Young & Hungry Podcast on Instagram for the latest updates &rarr;</a>
     </footer>
 
+
+
+
     <div class="modal-overlay" id="waitlistModal">
-        <div class="modal-content">
+        <div class="modal-">
             <span id="closeModal" style="position:absolute; top:15px; right:20px; cursor:pointer; font-size: 1.5rem;">&times;</span>
             <div id="modalForm">
                 <h2>Join the Waitlist</h2>
@@ -142,31 +178,54 @@
                     <button class="subscribe-btn" id="submitBtn">Subscribe</button>
                 </div>
             </div>
-            <div id="successMsg" style="display:none;">
-                <h2 style="font-size: 3rem;">✓</h2>
+            <div id="successMsg" style="display:none; padding: 20px;">
+                <h2 style="font-size: 3.5rem; margin-bottom: 10px;">✓</h2>
                 <h2>You're on the list!</h2>
+                <p>We'll email you soon.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // All previous logic (Modal, Smooth Scroll, Success message) stays here
+        // Modal & Trigger Logic
         const modal = document.getElementById('waitlistModal');
         const triggers = document.querySelectorAll('.trigger-waitlist, #navSubscribe');
-        triggers.forEach(t => t.onclick = () => modal.classList.add('show-modal'));
+        
+        triggers.forEach(t => {
+            t.onclick = (e) => {
+                e.preventDefault();
+                modal.classList.add('show-modal');
+            };
+        });
+
         document.getElementById('closeModal').onclick = () => modal.classList.remove('show-modal');
 
+        // Hero "Listen Now" Scroll Logic
         document.getElementById('heroListenBtn').onclick = () => {
             document.getElementById('episodes').scrollIntoView({ behavior: 'smooth' });
         };
 
+        // Success Message Logic
         document.getElementById('submitBtn').onclick = () => {
-            if(document.getElementById('emailInput').value.includes('@')) {
+            const email = document.getElementById('emailInput').value;
+            if(email.includes('@')) {
                 document.getElementById('modalForm').style.display = 'none';
                 document.getElementById('successMsg').style.display = 'block';
-                setTimeout(() => { modal.classList.remove('show-modal'); }, 2500);
+                setTimeout(() => {
+                    modal.classList.remove('show-modal');
+                    setTimeout(() => {
+                        document.getElementById('modalForm').style.display = 'block';
+                        document.getElementById('successMsg').style.display = 'none';
+                        document.getElementById('emailInput').value = '';
+                    }, 500);
+                }, 2500);
+            } else {
+                alert("Please enter a valid email.");
             }
         };
+
+        // Close on background click
+        window.onclick = (event) => { if (event.target == modal) modal.classList.remove('show-modal'); }
     </script>
 </body>
 </html>
