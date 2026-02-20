@@ -10,115 +10,65 @@
             --teal: #86c5d1;
             --dark-blue: #2c3e50;
             --light-bg: #dbe8ea;
-            --white: #ffffff;
-            --yellow-popup: #fdf2a7; /* Matched from popup wireframe */
+            --yellow-popup: #fdf2a7;
             --heading-font: 'Montserrat', sans-serif;
             --body-font: 'Source Sans Pro', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--body-font); background-color: var(--light-bg); color: var(--dark-blue); }
+        /* General Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { font-family: var(--body-font); background-color: var(--light-bg); color: var(--dark-blue); overflow-x: hidden; }
         h1, h2, h3 { font-family: var(--heading-font); }
-        a { text-decoration: none; color: inherit; cursor: pointer; }
+        a { text-decoration: none; color: inherit; }
 
         /* Navigation */
-        nav {
-            background-color: var(--teal);
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        nav { background-color: var(--teal); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--dark-blue); position: sticky; top: 0; z-index: 100; }
         .nav-logo { font-size: 1.5rem; font-weight: 800; }
         .nav-links { list-style: none; display: flex; gap: 20px; font-weight: 600; }
         .nav-links li { border-right: 1px solid var(--dark-blue); padding-right: 20px; }
         .nav-links li:last-child { border-right: none; }
 
         /* Hero Section */
-        .hero {
-            background-color: #0d82b0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 40px 5%;
-            align-items: center;
-            color: white;
-        }
+        .hero { background-color: #0d82b0; display: grid; grid-template-columns: 1fr 1fr; padding: 60px 5%; align-items: center; color: white; gap: 40px; }
+        .hero-img { height: 400px; background: #bcd1d4; border-radius: 15px; border: 2px dashed white; display: flex; align-items: center; justify-content: center; color: #555; }
         .hero-content { text-align: right; }
-        .hero-content h1 { font-size: 3rem; margin-bottom: 20px; }
-        .btn { 
-            display: inline-block; padding: 10px 30px; border-radius: 20px; 
-            margin: 5px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer;
-        }
-        .btn-light { background-color: #add8e6; color: var(--dark-blue); }
+        .hero-content h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+        .btn-light { background-color: #add8e6; padding: 12px 35px; border-radius: 25px; font-weight: 800; display: inline-block; margin: 10px 0; border: none; cursor: pointer; color: var(--dark-blue); transition: background 0.3s; }
+        .btn-light:hover { background-color: white; }
 
-        /* MODAL STYLES */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background-color: var(--yellow-popup);
-            width: 90%;
-            max-width: 500px;
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid var(--dark-blue);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px; right: 20px;
-            font-size: 24px;
+        /* Episode Cards & Hover Effect */
+        .section-padding { padding: 80px 5%; }
+        .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 20px; }
+        .episode-card { 
+            background-color: var(--teal); 
+            padding: 25px; 
+            border-radius: 15px; 
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            color: var(--dark-blue);
+            height: 100%;
         }
-
-        .modal-content h2 { margin-bottom: 20px; font-size: 2rem; color: var(--dark-blue); }
-        .modal-content p { font-style: italic; margin-bottom: 30px; font-size: 1.2rem; }
-
-        .input-group {
-            display: flex;
-            border: 1px solid var(--dark-blue);
-            border-radius: 10px;
-            overflow: hidden;
-            background: white;
+        .episode-link:hover .episode-card {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+        .card-img-placeholder { width: 100%; height: 160px; background-color: #bcd1d4; border-radius: 10px; margin-bottom: 15px; border: 1px dashed var(--dark-blue); }
+        .btn-play { background-color: var(--yellow-popup); border: 1px solid var(--dark-blue); padding: 8px 25px; border-radius: 20px; font-weight: 700; width: 100%; margin-top: 10px; }
 
-        .input-group input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            outline: none;
-            font-family: var(--body-font);
-            font-style: italic;
-        }
-
-        .subscribe-btn {
-            background-color: var(--teal);
-            border: none;
-            padding: 0 25px;
-            font-weight: 700;
-            color: var(--dark-blue);
-            cursor: pointer;
-            border-left: 1px solid var(--dark-blue);
-        }
-
-        /* Helper class to show modal */
+        /* Modal / Popup Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background-color: var(--yellow-popup); width: 90%; max-width: 500px; padding: 40px; border-radius: 20px; position: relative; text-align: center; border: 2px solid var(--dark-blue); transition: all 0.3s; }
         .show-modal { display: flex; }
+        .input-group { display: flex; border: 2px solid var(--dark-blue); border-radius: 10px; overflow: hidden; background: white; margin-top: 20px; }
+        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
+        .subscribe-btn { background-color: var(--teal); border: none; padding: 0 25px; font-weight: 700; border-left: 2px solid var(--dark-blue); cursor: pointer; }
+        
+        #successMsg { animation: popIn 0.4s ease; }
+        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        /* Rest of the styles (Episodes, Bio, etc) remain as before... */
-        .img-placeholder { background-color: #bcd1d4; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.1); color: rgba(0,0,0,0.3); }
-        .hero-img { height: 350px; width: 90%; border-radius: 10px; }
+        /* Bio & Mission (Previous Turns) */
+        .bio-section { display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: center; padding-bottom: 80px; }
+        .bio-img { width: 300px; height: 300px; border-radius: 50%; background: #bcd1d4; border: 1px solid var(--dark-blue); }
     </style>
 </head>
 <body>
@@ -128,180 +78,113 @@
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Episodes</a></li>
+            <li><a href="#episodes">Episodes</a></li>
             <li><a id="navSubscribe" href="javascript:void(0)">Subscribe</a></li>
         </ul>
     </nav>
 
     <section class="hero">
-        <div class="img-placeholder hero-img">Hero Illustration Placeholder</div>
+        <div class="hero-img">Hero Illustration Placeholder</div>
         <div class="hero-content">
             <h1>Preparing Kids for the AI Future</h1>
-            <button class="btn btn-light trigger-waitlist">Join the Waitlist</button><br>
-            <a href="#" class="btn btn-light">Listen Now</a>
+            <button class="btn-light trigger-waitlist">Join the Waitlist</button><br>
+            <button class="btn-light" id="heroListenBtn">Listen Now</button>
+        </div>
+    </section>
+
+    <section class="section-padding" id="episodes">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <h2>Check Out What's New!</h2>
+            <span style="font-size: 2.5rem; opacity: 0.1; font-weight: 800;">Episode Cards</span>
+        </div>
+
+        <div class="episodes-grid">
+            <a href="https://lamobilemechanic.org" target="_blank" class="episode-link">
+                <div class="episode-card">
+                    <h3>Raising AI-Ready Kids</h3>
+                    <span class="duration">32 min</span>
+                    <div class="card-img-placeholder"></div>
+                    <button class="btn-play">▶ Listen Now</button>
+                </div>
+            </a>
+            <a href="https://lamobilemechanic.org" target="_blank" class="episode-link">
+                <div class="episode-card">
+                    <h3>AI Tools in Schools</h3>
+                    <span class="duration">35 min</span>
+                    <div class="card-img-placeholder"></div>
+                    <button class="btn-play">▶ Listen Now</button>
+                </div>
+            </a>
+            <a href="https://lamobilemechanic.org" target="_blank" class="episode-link">
+                <div class="episode-card">
+                    <h3>Responsible AI Use</h3>
+                    <span class="duration">28 min</span>
+                    <div class="card-img-placeholder"></div>
+                    <button class="btn-play">▶ Listen Now</button>
+                </div>
+            </a>
         </div>
     </section>
 
     <div class="modal-overlay" id="waitlistModal">
         <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h2>Join the Waitlist</h2>
-            <p>Don't miss the first episode! Join the waitlist and listen first.</p>
-            <div class="input-group">
-                <input type="email" placeholder="Email">
-                <button class="subscribe-btn">Subscribe</button>
+            <span id="closeModal" style="position:absolute; top:15px; right:20px; cursor:pointer; font-size: 1.5rem;">&times;</span>
+            <div id="modalForm">
+                <h2>Join the Waitlist</h2>
+                <p>Don't miss the first episode! Join the waitlist and listen first.</p>
+                <div class="input-group">
+                    <input type="email" id="emailInput" placeholder="Email">
+                    <button class="subscribe-btn" id="submitBtn">Subscribe</button>
+                </div>
+            </div>
+            <div id="successMsg" style="display:none; padding: 20px;">
+                <h2 style="font-size: 3.5rem; margin-bottom: 10px;">✓</h2>
+                <h2>You're on the list!</h2>
+                <p>We'll email you soon.</p>
             </div>
         </div>
     </div>
 
     <script>
+        // Modal & Trigger Logic
         const modal = document.getElementById('waitlistModal');
-        const closeBtn = document.getElementById('closeModal');
         const triggers = document.querySelectorAll('.trigger-waitlist, #navSubscribe');
-
-        // Open Modal
-        triggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
+        
+        triggers.forEach(t => {
+            t.onclick = (e) => {
+                e.preventDefault();
                 modal.classList.add('show-modal');
-            });
+            };
         });
 
-        // Close Modal via 'X'
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('show-modal');
-        });
+        document.getElementById('closeModal').onclick = () => modal.classList.remove('show-modal');
 
-        // Close Modal via clicking background
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show-modal');
+        // Hero "Listen Now" Scroll Logic
+        document.getElementById('heroListenBtn').onclick = () => {
+            document.getElementById('episodes').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        // Success Message Logic
+        document.getElementById('submitBtn').onclick = () => {
+            const email = document.getElementById('emailInput').value;
+            if(email.includes('@')) {
+                document.getElementById('modalForm').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+                setTimeout(() => {
+                    modal.classList.remove('show-modal');
+                    setTimeout(() => {
+                        document.getElementById('modalForm').style.display = 'block';
+                        document.getElementById('successMsg').style.display = 'none';
+                        document.getElementById('emailInput').value = '';
+                    }, 500);
+                }, 2500);
+            } else {
+                alert("Please enter a valid email.");
             }
-        });
+        };
+
+        // Close on background click
+        window.onclick = (event) => { if (event.target == modal) modal.classList.remove('show-modal'); }
     </script>
-     /* Hero Section */
-        .hero {
-            background-color: #0d82b0; /* Darker blue from wireframe */
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 40px 5%;
-            align-items: center;
-            color: white;
-            min-height: 400px;
-        }
-        .hero-img { height: 350px; width: 90%; border-radius: 10px; }
-        .hero-content { text-align: right; }
-        .hero-content h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.1; }
-        .btn { 
-            display: inline-block; padding: 10px 30px; border-radius: 20px; 
-            margin: 5px; font-weight: 700; font-size: 0.9rem;
-        }
-        .btn-light { background-color: #add8e6; color: var(--dark-blue); }
-
-        /* Episode Cards */
-        .section-padding { padding: 60px 5%; }
-        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
-        .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .episode-card { background-color: var(--teal); padding: 20px; border-radius: 15px; }
-        .episode-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
-        .duration { font-size: 0.8rem; margin-bottom: 15px; display: block; }
-        .card-img { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 15px; }
-        .btn-play { background-color: var(--yellow); padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; border: none; font-weight: 700; cursor: pointer; }
-
-        /* Bio Section */
-        .bio-section { display: grid; grid-template-columns: 350px 1fr; gap: 50px; align-items: center; }
-        .bio-img { width: 300px; height: 300px; border-radius: 50%; }
-        .bio-text p { margin-bottom: 15px; font-size: 1.1rem; }
-        .link-arrow { font-weight: 700; border-bottom: 2px solid var(--dark-blue); }
-
-        /* Mission Section */
-        .mission { text-align: center; max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
-        .mission h2 { font-size: 2rem; margin-bottom: 30px; }
-        .mission h4 { margin-bottom: 20px; font-style: italic; }
-
-        /* Footer */
-        footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
-            .hero-content { text-align: center; margin-top: 20px; }
-            .nav-links { display: none; }
-        }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-logo">The Young and Hungry Podcast</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Episodes</a></li>
-            <li><a href="#">Subscribe</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero">
-        <div class="img-placeholder hero-img">Hero Illustration Placeholder</div>
-        <div class="hero-content">
-            <h1>Preparing Kids for the AI Future</h1>
-            <a href="#" class="btn btn-light">Join the Waitlist</a><br>
-            <a href="#" class="btn btn-light">Listen Now</a>
-        </div>
-    </section>
-
-    <section class="section-padding">
-        <div class="section-header">
-            <h2>Check Out What's New!</h2>
-            <p style="opacity: 0.5; font-size: 2rem; font-weight: 700;">Episode Cards</p>
-        </div>
-        <div class="episodes-grid">
-            <div class="episode-card">
-                <h3>Raising AI-Ready Kids</h3>
-                <span class="duration">32 min</span>
-                <div class="img-placeholder card-img">Image Placeholder</div>
-                <button class="btn-play">▶ Listen Now</button>
-            </div>
-            <div class="episode-card">
-                <h3>AI Tools in Schools: Help or Harm?</h3>
-                <span class="duration">35 min</span>
-                <div class="img-placeholder card-img">Image Placeholder</div>
-                <button class="btn-play">▶ Listen Now</button>
-            </div>
-            <div class="episode-card">
-                <h3>Teaching Kids Responsible AI Use</h3>
-                <span class="duration">28 min</span>
-                <div class="img-placeholder card-img">Image Placeholder</div>
-                <button class="btn-play">▶ Listen Now</button>
-            </div>
-        </div>
-        <p style="text-align: right; margin-top: 20px;">
-            <a href="#" class="link-arrow">View all Episodes &rarr;</a>
-        </p>
-    </section>
-
-    <section class="section-padding bio-section">
-        <div class="img-placeholder bio-img">Bio Photo Placeholder</div>
-        <div class="bio-text">
-            <h2>Meet Dr. Sean D. Young</h2>
-            <p>
-                Dr. Sean D. Young is a UC Irvine professor and <strong>Stanford-trained psychologist</strong> who researches how AI and digital technology shape behavior and learning. He has published over <strong>150 scientific papers</strong> and authored a <strong>#1 Wall Street Journal bestselling book</strong> on behavior change. His work helps parents and educators make informed, practical decisions about technology and children.
-            </p>
-            <a href="#" class="link-arrow">Read Full Bio &rarr;</a>
-        </div>
-    </section>
-
-    <section class="section-padding mission">
-        <h2>AI is changing childhood faster than most adults feel prepared for.</h2>
-        <h4>We Help You Navigate It With Confidence</h4>
-        <p>Aiming to teach parents and educators how to confidently guide children through the age of AI by translating psychology and research into practical, everyday tools. Each episode delivers clear insights and real strategies to support healthy, responsible, and future-ready technology use.</p>
-    </section>
-
-    <footer>
-        <a href="#">Follow The Young & Hungry Podcast on Instagram for the latest updates &rarr;</a>
-    </footer>
-
-</body>
-
-
 </body>
 </html>
