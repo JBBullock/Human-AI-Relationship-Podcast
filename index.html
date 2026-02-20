@@ -20,6 +20,18 @@
         body { font-family: var(--body-font); background-color: var(--light-bg); color: var(--dark-blue); overflow-x: hidden; }
         h1, h2, h3 { font-family: var(--heading-font); }
         a { text-decoration: none; color: inherit; }
+        .end-space {
+      height: 300px;
+    }
+        /* Footer */
+        footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
+
+        @media (max-width: 768px) {
+            .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { text-align: center; margin-top: 20px; }
+            .nav-links { display: none; }
+        }
+
 
         /* Navigation */
         nav { background-color: var(--teal); padding: 20px 5%; display: flex; justify-: space-between; align-items: center; border-bottom: 2px solid var(--dark-blue); position: sticky; top: 0; z-index: 100; }
@@ -70,18 +82,7 @@
         .bio-section { display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: center; padding-bottom: 80px; }
         .bio-img { width: 300px; height: 300px; border-radius: 50%; background: #bcd1d4; border: 1px solid var(--dark-blue); }
          /* Footer spacer */
-    .end-space {
-      height: 300px;
-    }
-        /* Footer */
-        footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
-            .hero-content { text-align: center; margin-top: 20px; }
-            .nav-links { display: none; }
-        }
-
+    
 
     </style>
 </head>
