@@ -178,6 +178,130 @@
             }
         });
     </script>
+     /* Hero Section */
+        .hero {
+            background-color: #0d82b0; /* Darker blue from wireframe */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 40px 5%;
+            align-items: center;
+            color: white;
+            min-height: 400px;
+        }
+        .hero-img { height: 350px; width: 90%; border-radius: 10px; }
+        .hero-content { text-align: right; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.1; }
+        .btn { 
+            display: inline-block; padding: 10px 30px; border-radius: 20px; 
+            margin: 5px; font-weight: 700; font-size: 0.9rem;
+        }
+        .btn-light { background-color: #add8e6; color: var(--dark-blue); }
+
+        /* Episode Cards */
+        .section-padding { padding: 60px 5%; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .episode-card { background-color: var(--teal); padding: 20px; border-radius: 15px; }
+        .episode-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
+        .duration { font-size: 0.8rem; margin-bottom: 15px; display: block; }
+        .card-img { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 15px; }
+        .btn-play { background-color: var(--yellow); padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; border: none; font-weight: 700; cursor: pointer; }
+
+        /* Bio Section */
+        .bio-section { display: grid; grid-template-columns: 350px 1fr; gap: 50px; align-items: center; }
+        .bio-img { width: 300px; height: 300px; border-radius: 50%; }
+        .bio-text p { margin-bottom: 15px; font-size: 1.1rem; }
+        .link-arrow { font-weight: 700; border-bottom: 2px solid var(--dark-blue); }
+
+        /* Mission Section */
+        .mission { text-align: center; max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
+        .mission h2 { font-size: 2rem; margin-bottom: 30px; }
+        .mission h4 { margin-bottom: 20px; font-style: italic; }
+
+        /* Footer */
+        footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
+
+        @media (max-width: 768px) {
+            .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { text-align: center; margin-top: 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">The Young and Hungry Podcast</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Episodes</a></li>
+            <li><a href="#">Subscribe</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="img-placeholder hero-img">Hero Illustration Placeholder</div>
+        <div class="hero-content">
+            <h1>Preparing Kids for the AI Future</h1>
+            <a href="#" class="btn btn-light">Join the Waitlist</a><br>
+            <a href="#" class="btn btn-light">Listen Now</a>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="section-header">
+            <h2>Check Out What's New!</h2>
+            <p style="opacity: 0.5; font-size: 2rem; font-weight: 700;">Episode Cards</p>
+        </div>
+        <div class="episodes-grid">
+            <div class="episode-card">
+                <h3>Raising AI-Ready Kids</h3>
+                <span class="duration">32 min</span>
+                <div class="img-placeholder card-img">Image Placeholder</div>
+                <button class="btn-play">▶ Listen Now</button>
+            </div>
+            <div class="episode-card">
+                <h3>AI Tools in Schools: Help or Harm?</h3>
+                <span class="duration">35 min</span>
+                <div class="img-placeholder card-img">Image Placeholder</div>
+                <button class="btn-play">▶ Listen Now</button>
+            </div>
+            <div class="episode-card">
+                <h3>Teaching Kids Responsible AI Use</h3>
+                <span class="duration">28 min</span>
+                <div class="img-placeholder card-img">Image Placeholder</div>
+                <button class="btn-play">▶ Listen Now</button>
+            </div>
+        </div>
+        <p style="text-align: right; margin-top: 20px;">
+            <a href="#" class="link-arrow">View all Episodes &rarr;</a>
+        </p>
+    </section>
+
+    <section class="section-padding bio-section">
+        <div class="img-placeholder bio-img">Bio Photo Placeholder</div>
+        <div class="bio-text">
+            <h2>Meet Dr. Sean D. Young</h2>
+            <p>
+                Dr. Sean D. Young is a UC Irvine professor and <strong>Stanford-trained psychologist</strong> who researches how AI and digital technology shape behavior and learning. He has published over <strong>150 scientific papers</strong> and authored a <strong>#1 Wall Street Journal bestselling book</strong> on behavior change. His work helps parents and educators make informed, practical decisions about technology and children.
+            </p>
+            <a href="#" class="link-arrow">Read Full Bio &rarr;</a>
+        </div>
+    </section>
+
+    <section class="section-padding mission">
+        <h2>AI is changing childhood faster than most adults feel prepared for.</h2>
+        <h4>We Help You Navigate It With Confidence</h4>
+        <p>Aiming to teach parents and educators how to confidently guide children through the age of AI by translating psychology and research into practical, everyday tools. Each episode delivers clear insights and real strategies to support healthy, responsible, and future-ready technology use.</p>
+    </section>
+
+    <footer>
+        <a href="#">Follow The Young & Hungry Podcast on Instagram for the latest updates &rarr;</a>
+    </footer>
+
+</body>
+
 
 </body>
 </html>
