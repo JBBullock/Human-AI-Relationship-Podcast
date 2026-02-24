@@ -35,9 +35,7 @@
         .nav-links li:last-child { border-right: none; }
         .nav-links a { cursor: pointer; transition: opacity 0.2s; }
         .nav-links a:hover { opacity: 0.7; }
-
         /* Image Placeholder Base */
-        
         .img-placeholder {
             background-color: #bcd1d4;
             display: flex;
@@ -119,6 +117,156 @@
 
         /* Footer */
         footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
+
+        /* ── Page Switching ── */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s ease both; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-links a.nav-active { border-bottom: 2px solid var(--dark-blue); }
+
+        /* ── About Page ── */
+
+        /* The Problem */
+        .about-problem {
+            background-color: var(--teal);
+            padding: 50px 7%;
+        }
+        .about-problem h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+        .about-problem p {
+            margin-bottom: 14px;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 820px;
+        }
+        .about-problem .tagline {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-top: 10px;
+        }
+
+        /* Mission */
+        .about-mission {
+            background-color: var(--light-bg);
+            padding: 50px 7%;
+        }
+        .about-mission h2 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: var(--dark-blue);
+        }
+        .about-mission-inner {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-mission-logo {
+            width: 260px;
+            height: 260px;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--heading-font);
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.1;
+            color: var(--dark-blue);
+            border: 2px solid rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+        .about-mission-text p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* What You'll Gain */
+        .about-gain {
+            background-color: var(--teal);
+            padding: 50px 7%;
+        }
+        .about-gain h2 {
+            font-size: 1.6rem;
+            margin-bottom: 28px;
+            color: var(--dark-blue);
+        }
+        .about-gain-inner {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-gain-text p { margin-bottom: 14px; line-height: 1.7; font-size: 1rem; }
+        .about-gain-text ul {
+            margin: 14px 0 14px 20px;
+            line-height: 2;
+            font-size: 0.97rem;
+        }
+        .about-gain-img {
+            width: 320px;
+            height: 260px;
+            border-radius: 14px;
+            background-color: var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        /* Meet Dr. Sean Young — About version */
+        .about-bio {
+            background-color: var(--light-bg);
+            padding: 50px 7%;
+        }
+        .about-bio h2 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: var(--dark-blue);
+        }
+        .about-bio-inner {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .about-bio-photo {
+            width: 240px;
+            height: 260px;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: #bcd1d4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .about-bio-text p { margin-bottom: 14px; line-height: 1.7; font-size: 1rem; }
+        .about-bio-text .link-arrow { margin-top: 6px; display: inline-block; }
+
+        /* Responsive About */
+        @media (max-width: 768px) {
+            .about-mission-inner,
+            .about-gain-inner,
+            .about-bio-inner { grid-template-columns: 1fr; }
+            .about-mission-logo,
+            .about-gain-img,
+            .about-bio-photo { width: 100%; }
+            .about-mission-logo { height: 200px; }
+        }
 
         /* ── FEATURE 2: Subscribe Modal ── */
         .modal-overlay {
@@ -294,15 +442,18 @@
     <nav>
         <div class="nav-logo">The Young and Hungry Podcast</div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Episodes</a></li>
-            <li><a href="#" class="subscribe-trigger">Subscribe</a></li>
+            <li><a href="#" class="nav-link nav-active" data-page="home">Home</a></li>
+            <li><a href="#" class="nav-link" data-page="about">About</a></li>
+            <li><a href="#" class="nav-link" data-page="home">Episodes</a></li>
+            <li><a href="#" class="nav-link subscribe-trigger">Subscribe</a></li>
         </ul>
     </nav>
 
+    <!-- ══ HOME PAGE ══ -->
+    <div id="page-home" class="page active">
+
     <section class="hero">
-        <src="podcastHomePage.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
+        <div class="img-placeholder hero-img">Hero Illustration Placeholder</div>
         <div class="hero-content">
             <h1>Preparing Kids for the AI Future</h1>
             <a href="#" class="btn btn-light subscribe-trigger">Join the Waitlist</a><br>
@@ -320,19 +471,19 @@
             <div class="episode-card" data-video-id="hKB-YGF14SY" data-title="Raising AI-Ready Kids">
                 <h3>Raising AI-Ready Kids</h3>
                 <span class="duration">32 min</span>
-                <src="podcastEp1.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
+                <div class="img-placeholder card-img">Image Placeholder</div>
                 <button class="btn-play">▶ Listen Now</button>
             </div>
             <div class="episode-card" data-video-id="aircAruvnKk" data-title="AI Tools in Schools: Help or Harm?">
                 <h3>AI Tools in Schools: Help or Harm?</h3>
                 <span class="duration">35 min</span>
-                <src="podcastEp2.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
+                <div class="img-placeholder card-img">Image Placeholder</div>
                 <button class="btn-play">▶ Listen Now</button>
             </div>
             <div class="episode-card" data-video-id="JMLsHI8aV0g" data-title="Teaching Kids Responsible AI Use">
                 <h3>Teaching Kids Responsible AI Use</h3>
                 <span class="duration">28 min</span>
-                <src="podcastEp3.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
+                <div class="img-placeholder card-img">Image Placeholder</div>
                 <button class="btn-play">▶ Listen Now</button>
             </div>
         </div>
@@ -342,7 +493,7 @@
     </section>
 
     <section class="section-padding bio-section">
-        <src="podcastLogo.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
+        <div class="img-placeholder bio-img">Bio Photo Placeholder</div>
         <div class="bio-text">
             <h2>Meet Dr. Sean D. Young</h2>
             <p>
@@ -357,6 +508,68 @@
         <h4>We Help You Navigate It With Confidence</h4>
         <p>Aiming to teach parents and educators how to confidently guide children through the age of AI by translating psychology and research into practical, everyday tools. Each episode delivers clear insights and real strategies to support healthy, responsible, and future-ready technology use.</p>
     </section>
+
+    </div><!-- end #page-home -->
+
+    <!-- ══ ABOUT PAGE ══ -->
+    <div id="page-about" class="page">
+
+        <!-- The Problem -->
+        <section class="about-problem">
+            <h2>The Problem</h2>
+            <p>Artificial intelligence is already part of students' everyday lives, but most parents and teachers haven't been given clear, practical guidance on how to talk about it, teach it, or use it responsibly. As a result, many families feel uncertain, overwhelmed, or even fearful about what AI means for their children's future.</p>
+            <p>Many parents and educators worry AI will replace skills, reduce critical thinking, or create unfair advantages, but few are shown how AI can actually support learning, creativity, and growth when used the right way. There is a growing gap between how quickly AI is advancing and how prepared families feel to guide children through it. What's missing isn't access, it's understanding, practical strategies, and age-appropriate direction.</p>
+            <p class="tagline">That gap is exactly what the Young and Hungry Podcast was created to close.</p>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="about-mission">
+            <h2>Our Mission</h2>
+            <div class="about-mission-inner">
+                <div class="about-mission-logo">YOUNG<br>&amp;<br>HUNGRY</div>
+                <div class="about-mission-text">
+                    <p>Through the Young and Hungry Podcast we aim to help guide parents and educators on how to navigate the new age of A.I. with clarity and confidence.</p>
+                    <p>Each episode is designed to translate complex AI concepts into simple, real-world strategies that support learning, creativity, and responsible use. The goal is not just awareness, it's action. We aim to equip adults to guide children in using AI thoughtfully, ethically, and productively as part of their everyday education and growth.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What You'll Gain -->
+        <section class="about-gain">
+            <h2>What You'll Gain From the Podcast</h2>
+            <div class="about-gain-inner">
+                <div class="about-gain-text">
+                    <p>Listeners will walk away with practical tools and clear next steps, not just theory. Episodes focus on real applications and real conversations families can have today.</p>
+                    <p>Through the podcast, you'll learn how to:</p>
+                    <ul>
+                        <li>Explain AI to kids in age-appropriate ways</li>
+                        <li>Turn AI tools into learning partners instead of shortcuts</li>
+                        <li>Build healthy and responsible AI habits</li>
+                        <li>Encourage curiosity, creativity, and critical thinking</li>
+                        <li>Support students using AI for school and projects</li>
+                        <li>Reduce fear and replace it with understanding and confidence</li>
+                    </ul>
+                    <p>Each conversation connects psychology, behavior science, and modern technology to everyday parenting and teaching decisions.</p>
+                </div>
+                <div class="img-placeholder about-gain-img">Family Illustration Placeholder</div>
+            </div>
+        </section>
+
+        <!-- Meet Dr. Sean Young -->
+        <section class="about-bio">
+            <h2>Meet Dr. Sean Young</h2>
+            <div class="about-bio-inner">
+                <div class="img-placeholder about-bio-photo">Dr. Sean Young Photo</div>
+                <div class="about-bio-text">
+                    <p>Sean D. Young is a professor at the University of California, Irvine, with appointments in Emergency Medicine and Informatics &amp; Computer Sciences. A trained psychologist and researcher, he studies how people build habits and use technology — including AI — in healthy, effective ways.</p>
+                    <p>He holds a Ph.D. in Psychology from Stanford University and has published more than 150 scientific papers on technology, behavior, and digital health. He is also the author of <em>Stick with It</em>, a #1 Wall Street Journal and international bestselling book on lasting behavior change.</p>
+                    <p>Dr. Young brings trusted, research-based guidance to parents and educators, turning complex science into practical strategies they can confidently use with students and children.</p>
+                    <a href="#" class="link-arrow">Learn more about Dr. Sean Young &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end #page-about -->
 
     <footer>
         <a href="https://www.instagram.com/youngandhungryk_12" target="_blank" rel="noopener noreferrer">
@@ -407,6 +620,25 @@
     </div>
 
     <script>
+        /* ── Page Navigation ── */
+        document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = link.dataset.page;
+
+                // Show/hide pages
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById('page-' + target).classList.add('active');
+
+                // Update active nav state
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
+                // Mark all links pointing to this page
+                document.querySelectorAll(`.nav-link[data-page="${target}"]`).forEach(l => l.classList.add('nav-active'));
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
         /* ── Subscribe Modal ── */
         const modal       = document.getElementById('subscribeModal');
         const modalClose  = document.getElementById('modalClose');
