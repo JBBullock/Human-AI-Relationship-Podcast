@@ -6,7 +6,6 @@
     <title>The Young and Hungry Podcast</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Variables for consistency */
         :root {
             --teal: #86c5d1;
             --dark-blue: #2c3e50;
@@ -34,6 +33,8 @@
         .nav-links { list-style: none; display: flex; gap: 20px; font-weight: 600; }
         .nav-links li { border-right: 1px solid var(--dark-blue); padding-right: 20px; }
         .nav-links li:last-child { border-right: none; }
+        .nav-links a { cursor: pointer; transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 0.7; }
 
         /* Image Placeholder Base */
         .img-placeholder {
@@ -48,7 +49,7 @@
 
         /* Hero Section */
         .hero {
-            background-color: #0d82b0; /* Darker blue from wireframe */
+            background-color: #0d82b0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             padding: 40px 5%;
@@ -59,21 +60,50 @@
         .hero-img { height: 350px; width: 90%; border-radius: 10px; }
         .hero-content { text-align: right; }
         .hero-content h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.1; }
-        .btn { 
-            display: inline-block; padding: 10px 30px; border-radius: 20px; 
-            margin: 5px; font-weight: 700; font-size: 0.9rem;
+        .btn {
+            display: inline-block; padding: 10px 30px; border-radius: 20px;
+            margin: 5px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
         .btn-light { background-color: #add8e6; color: var(--dark-blue); }
 
         /* Episode Cards */
         .section-padding { padding: 60px 5%; }
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
         .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .episode-card { background-color: var(--teal); padding: 20px; border-radius: 15px; }
+
+        /* ── FEATURE 1: Card Hover Effect ── */
+        .episode-card {
+            background-color: var(--teal);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition:
+                transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s ease;
+            will-change: transform;
+        }
+        .episode-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(44, 62, 80, 0.2);
+        }
+        .episode-card:active { transform: translateY(-4px) scale(1.01); }
+
         .episode-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
         .duration { font-size: 0.8rem; margin-bottom: 15px; display: block; }
-        .card-img { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 15px; }
-        .btn-play { background-color: var(--yellow); padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; border: none; font-weight: 700; cursor: pointer; }
+        .card-img { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 15px; overflow: hidden; position: relative; }
+        .btn-play {
+            background-color: var(--yellow);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.15s;
+        }
+        .btn-play:hover { background-color: #f5e840; transform: scale(1.05); }
 
         /* Bio Section */
         .bio-section { display: grid; grid-template-columns: 350px 1fr; gap: 50px; align-items: center; }
@@ -89,6 +119,168 @@
         /* Footer */
         footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
 
+        /* ── FEATURE 2: Subscribe Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 130, 176, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 48px 40px 40px;
+            width: min(460px, 90vw);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            position: relative;
+            animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.85) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 14px; right: 18px;
+            background: none; border: none;
+            font-size: 1.4rem; cursor: pointer;
+            color: #aaa; line-height: 1;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--dark-blue); }
+
+        .modal-box h3 {
+            font-family: var(--heading-font);
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+        }
+        .modal-box p { color: #666; margin-bottom: 24px; font-size: 0.95rem; }
+
+        .email-input-wrap { display: flex; flex-direction: column; gap: 10px; }
+        .email-input-wrap input[type="email"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #cde4e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: var(--body-font);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .email-input-wrap input[type="email"]:focus { border-color: var(--teal); }
+        .email-input-wrap input[type="email"].error { border-color: #e74c3c; }
+
+        .error-msg { color: #e74c3c; font-size: 0.85rem; display: none; }
+        .error-msg.visible { display: block; }
+
+        .btn-subscribe {
+            background-color: #0d82b0;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-family: var(--heading-font);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.15s;
+        }
+        .btn-subscribe:hover { background-color: #0a6d96; transform: translateY(-1px); }
+
+        /* Success state */
+        .modal-success {
+            display: none;
+            text-align: center;
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        .modal-success.visible { display: block; }
+        .success-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            animation: bounceIn 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @keyframes bounceIn {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+        .modal-success h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--dark-blue); }
+        .modal-success p { color: #555; }
+
+        /* ── FEATURE 3: YouTube Miniplayer ── */
+        .yt-player-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .yt-player-backdrop.active { display: flex; }
+
+        .yt-player-container {
+            background: #1a1a2e;
+            border-radius: 18px;
+            overflow: hidden;
+            width: min(700px, 92vw);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .yt-player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: #111120;
+        }
+        .yt-player-title {
+            color: white;
+            font-family: var(--heading-font);
+            font-size: 0.95rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80%;
+        }
+        .yt-player-close {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .yt-player-close:hover { background: rgba(255,255,255,0.25); }
+
+        .yt-iframe-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+        }
+        .yt-iframe-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
             .hero-content { text-align: center; margin-top: 20px; }
@@ -104,7 +296,7 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Episodes</a></li>
-            <li><a href="#">Subscribe</a></li>
+            <li><a href="#" class="subscribe-trigger">Subscribe</a></li>
         </ul>
     </nav>
 
@@ -112,7 +304,7 @@
         <div class="img-placeholder hero-img">Hero Illustration Placeholder</div>
         <div class="hero-content">
             <h1>Preparing Kids for the AI Future</h1>
-            <a href="#" class="btn btn-light">Join the Waitlist</a><br>
+            <a href="#" class="btn btn-light subscribe-trigger">Join the Waitlist</a><br>
             <a href="#" class="btn btn-light">Listen Now</a>
         </div>
     </section>
@@ -123,19 +315,20 @@
             <p style="opacity: 0.5; font-size: 2rem; font-weight: 700;">Episode Cards</p>
         </div>
         <div class="episodes-grid">
-            <div class="episode-card">
+            <!-- Each card has data-video-id pointing to a YouTube video ID -->
+            <div class="episode-card" data-video-id="hKB-YGF14SY" data-title="Raising AI-Ready Kids">
                 <h3>Raising AI-Ready Kids</h3>
                 <span class="duration">32 min</span>
                 <div class="img-placeholder card-img">Image Placeholder</div>
                 <button class="btn-play">▶ Listen Now</button>
             </div>
-            <div class="episode-card">
+            <div class="episode-card" data-video-id="aircAruvnKk" data-title="AI Tools in Schools: Help or Harm?">
                 <h3>AI Tools in Schools: Help or Harm?</h3>
                 <span class="duration">35 min</span>
                 <div class="img-placeholder card-img">Image Placeholder</div>
                 <button class="btn-play">▶ Listen Now</button>
             </div>
-            <div class="episode-card">
+            <div class="episode-card" data-video-id="JMLsHI8aV0g" data-title="Teaching Kids Responsible AI Use">
                 <h3>Teaching Kids Responsible AI Use</h3>
                 <span class="duration">28 min</span>
                 <div class="img-placeholder card-img">Image Placeholder</div>
@@ -166,8 +359,140 @@
 
     <footer>
         <a href="https://www.instagram.com/youngandhungryk_12" target="_blank" rel="noopener noreferrer">
-    Follow The Young & Hungry Podcast on Instagram for the latest updates &rarr;</a>
+            Follow The Young &amp; Hungry Podcast on Instagram for the latest updates &rarr;</a>
     </footer>
+
+    <!-- ── FEATURE 2: Subscribe Modal ── -->
+    <div class="modal-overlay" id="subscribeModal" role="dialog" aria-modal="true" aria-label="Subscribe">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+            <!-- Form state -->
+            <div id="modalForm">
+                <h3>Stay in the Loop 🎙️</h3>
+                <p>Get new episodes and AI parenting insights delivered straight to your inbox.</p>
+                <div class="email-input-wrap">
+                    <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email" />
+                    <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+                    <button class="btn-subscribe" id="submitEmail">Subscribe Now</button>
+                </div>
+            </div>
+
+            <!-- Success state -->
+            <div class="modal-success" id="modalSuccess">
+                <div class="success-icon">🎉</div>
+                <h3>You're subscribed!</h3>
+                <p>Welcome to the community. You'll hear from us when new episodes drop.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── FEATURE 3: YouTube Miniplayer ── -->
+    <div class="yt-player-backdrop" id="ytBackdrop">
+        <div class="yt-player-container">
+            <div class="yt-player-header">
+                <span class="yt-player-title" id="ytTitle">Episode</span>
+                <button class="yt-player-close" id="ytClose" aria-label="Close player">&times;</button>
+            </div>
+            <div class="yt-iframe-wrap">
+                <iframe
+                    id="ytIframe"
+                    src=""
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ── Subscribe Modal ── */
+        const modal       = document.getElementById('subscribeModal');
+        const modalClose  = document.getElementById('modalClose');
+        const emailInput  = document.getElementById('emailInput');
+        const emailError  = document.getElementById('emailError');
+        const submitBtn   = document.getElementById('submitEmail');
+        const modalForm   = document.getElementById('modalForm');
+        const modalSuccess= document.getElementById('modalSuccess');
+
+        function openModal() {
+            // Reset to form state each time
+            modalForm.style.display = 'block';
+            modalSuccess.classList.remove('visible');
+            emailInput.value = '';
+            emailInput.classList.remove('error');
+            emailError.classList.remove('visible');
+            modal.classList.add('active');
+            setTimeout(() => emailInput.focus(), 100);
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Trigger: nav "Subscribe" link + "Join the Waitlist" button
+        document.querySelectorAll('.subscribe-trigger').forEach(el => {
+            el.addEventListener('click', e => { e.preventDefault(); openModal(); });
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        function isValidEmail(v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+        }
+
+        submitBtn.addEventListener('click', () => {
+            if (!isValidEmail(emailInput.value)) {
+                emailInput.classList.add('error');
+                emailError.classList.add('visible');
+                emailInput.focus();
+                return;
+            }
+            // Valid email → show success
+            modalForm.style.display = 'none';
+            modalSuccess.classList.add('visible');
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailInput.classList.remove('error');
+            emailError.classList.remove('visible');
+        });
+
+        emailInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') submitBtn.click();
+        });
+
+        /* ── YouTube Miniplayer ── */
+        const ytBackdrop = document.getElementById('ytBackdrop');
+        const ytIframe   = document.getElementById('ytIframe');
+        const ytTitle    = document.getElementById('ytTitle');
+        const ytClose    = document.getElementById('ytClose');
+
+        function openPlayer(videoId, title) {
+            ytTitle.textContent = title;
+            ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            ytBackdrop.classList.add('active');
+        }
+
+        function closePlayer() {
+            ytBackdrop.classList.remove('active');
+            ytIframe.src = ''; // stops video playback
+        }
+
+        document.querySelectorAll('.episode-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const videoId = card.dataset.videoId;
+                const title   = card.dataset.title;
+                if (videoId) openPlayer(videoId, title);
+            });
+        });
+
+        ytClose.addEventListener('click', closePlayer);
+        ytBackdrop.addEventListener('click', e => { if (e.target === ytBackdrop) closePlayer(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePlayer(); });
+    </script>
 
 </body>
 </html>
