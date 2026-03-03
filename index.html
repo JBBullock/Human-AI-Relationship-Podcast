@@ -465,11 +465,10 @@
     <nav>
         <div class="nav-logo">The Young and Hungry Podcast</div>
         <ul class="nav-links">
-            <li><a href="#" class="nav-link nav-active" data-page="home">Home</a></li>
-            <li><a href="#" class="nav-link" data-page="about">About</a></li>
-            <li><a href="#" class="nav-link" data-page="home">Episodes</a></li>
-            <li><a href="#" class="nav-link subscribe-trigger">Subscribe</a></li>
-        </ul>
+    <li><a href="#" class="nav-link nav-active" data-page="home">Home</a></li>
+    <li><a href="#" class="nav-link" data-page="about">About</a></li>
+    <li><a href="#" class="nav-link" data-page="episodes">Episodes</a></li> <li><a href="#" class="nav-link subscribe-trigger">Subscribe</a></li>
+</ul>
     </nav>
     <li><a href="#" class="nav-link" data-page="episodes">Episodes</a></li>
 
@@ -513,8 +512,8 @@
             </div>
         </div>
         <p style="text-align: right; margin-top: 20px;">
-            <a href="#" class="link-arrow">View all Episodes &rarr;</a>
-        </p>
+    <a href="#" class="link-arrow nav-link" data-page="episodes">View all Episodes &rarr;</a>
+</p>
     </section>
 
     <section class="section-padding bio-section">
@@ -537,63 +536,7 @@
     </div><!-- end #page-home -->
 
 
-    <div id="page-episodes" class="page">
-        <div class="episodes-container">
-            <div class="page-header">
-                <h1>Podcast Episodes</h1>
-                <p>Explore conversations about preparing youth for an AI-driven future.</p>
-            </div>
-
-            <div class="episode-row" data-video-id="t_5HwjlZIl8" data-title="Helping Children Understand AI">
-                <img src="podcastEp1.png" alt="ep1" class="row-img">
-                <div class="row-content">
-                    <h3>Helping Children Understand AI</h3>
-                    <p>An introduction to talking with kids about artificial intelligence in age-appropriate ways that build curiosity rather than fear.</p>
-                    <span class="row-duration">42 min</span>
-                </div>
-                <button class="btn-listen">▶ Listen Now</button>
-            </div>
-
-            <div class="episode-row" data-video-id="oV6HWzzeD-I" data-title="Reducing Fear Around AI">
-                <img src="podcastEp2.png" alt="ep2" class="row-img">
-                <div class="row-content">
-                    <h3>Reducing Fear Around Artificial Intelligence</h3>
-                    <p>Practical strategies for parents and educators to address common concerns about AI technology and help students develop a balanced perspective.</p>
-                    <span class="row-duration">38 min</span>
-                </div>
-                <button class="btn-listen">▶ Listen Now</button>
-            </div>
-
-            <div class="episode-row" data-video-id="hJP5GqnTrNo" data-title="AI in Education">
-                <img src="podcastEp3.png" alt="ep3" class="row-img">
-                <div class="row-content">
-                    <h3>AI in Education: What Parents Should Know</h3>
-                    <p>Understanding how AI is being used in classrooms today and what questions parents should ask about their child's tech-enhanced learning experience.</p>
-                    <span class="row-duration">45 min</span>
-                </div>
-                <button class="btn-listen">▶ Listen Now</button>
-            </div>
-
-            <div class="episode-row" data-video-id="oV6HWzzeD-I" data-title="Healthy AI Habits">
-                <img src="podcastEp2.png" alt="ep4" class="row-img">
-                <div class="row-content">
-                    <h3>Building Healthy AI Habits for Students</h3>
-                    <p>Teaching critical thinking skills and responsible technology use as young people navigate an increasingly AI-integrated world.</p>
-                    <span class="row-duration">51 min</span>
-                </div>
-                <button class="btn-listen">▶ Listen Now</button>
-            </div>
-
-            <div class="stay-updated">
-                <h2>Stay Updated</h2>
-                <p>Subscribe to our newsletter to be notified when new episodes are released and receive exclusive content about AI literacy for youth.</p>
-                <div class="input-group">
-                    <input type="email" placeholder="Enter your email">
-                    <button class="btn-sub-alt">Subscribe</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- ══ ABOUT PAGE ══ -->
     <div id="page-about" class="page">
@@ -844,6 +787,25 @@ document.querySelectorAll('.episode-row').forEach(row => {
         const videoId = row.dataset.videoId;
         const title   = row.dataset.title;
         if (videoId) openPlayer(videoId, title);
+    });
+});
+        // Add this to make the horizontal rows clickable
+document.querySelectorAll('.episode-row').forEach(row => {
+    row.addEventListener('click', () => {
+        const videoId = row.dataset.videoId;
+        const title   = row.dataset.title;
+        // This calls your existing openPlayer function
+        if (typeof openPlayer === "function") {
+            openPlayer(videoId, title);
+        } else {
+            // Fallback if openPlayer isn't defined in your snippet
+            const ytBackdrop = document.getElementById('ytBackdrop');
+            const ytIframe = document.getElementById('ytIframe');
+            const ytTitle = document.getElementById('ytTitle');
+            ytTitle.textContent = title;
+            ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            ytBackdrop.classList.add('active');
+        }
     });
 });
     </script>
