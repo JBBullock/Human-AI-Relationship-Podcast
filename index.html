@@ -457,7 +457,7 @@
     background-color: #b3ced3; border-radius: 15px; padding: 40px;
     text-align: center; margin-top: 40px;
 }
-.stay-updated-alt input { padding: 12px; border: 1px solid #9dbabc; border-radius: 8px; width: 250px; }
+.stay-updated-alt input { padding: 12px; border: 1px solid #9dbabc; border-radius: 8px; width: 250px; margin-top: 80px; }
     </style>
 </head>
 <body>
@@ -807,6 +807,24 @@ document.querySelectorAll('.episode-row').forEach(row => {
         }
     });
 });
+        // Link the Episodes page subscribe button to the modal
+const episodesSubBtn = document.querySelector('#page-episodes .stay-updated-alt .btn-listen');
+const subModal = document.getElementById('subscribeModal');
+
+if (episodesSubBtn && subModal) {
+    episodesSubBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        subModal.classList.add('active');
+        
+        // Optional: If they already typed an email in the page input, 
+        // we can copy it to the modal's input automatically
+        const pageEmailInput = document.querySelector('#page-episodes .stay-updated-alt input');
+        const modalEmailInput = document.getElementById('emailInput');
+        if (pageEmailInput && pageEmailInput.value) {
+            modalEmailInput.value = pageEmailInput.value;
+        }
+    });
+}
     </script>
 
 </body>
