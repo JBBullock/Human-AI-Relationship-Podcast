@@ -9,6 +9,7 @@
         :root {
             --teal: #86c5d1;
             --dark-blue: #2c3e50;
+            --btn-blue: #26649e; /* New blue for buttons from screenshot */
             --light-bg: #dbe8ea;
             --white: #ffffff;
             --yellow: #fdf2a7;
@@ -35,18 +36,23 @@
         .nav-links li:last-child { border-right: none; }
         .nav-links a { cursor: pointer; transition: opacity 0.2s; }
         .nav-links a:hover { opacity: 0.7; }
-        /* Image Placeholder Base */
-        .img-placeholder {
-            background-color: #bcd1d4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(0,0,0,0.1);
-            color: rgba(0,0,0,0.3);
-            font-size: 0.8rem;
+        .nav-links a.nav-active { border-bottom: 2px solid var(--dark-blue); }
+
+        /* Page Transitions */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s ease both; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* General Layout */
+        .section-padding { padding: 60px 5%; }
+        .btn {
+            display: inline-block; padding: 10px 30px; border-radius: 20px;
+            margin: 5px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            border: none;
         }
 
-        /* Hero Section */
+        /* ── HOME PAGE SPECIFIC ── */
         .hero {
             background-color: #0d82b0;
             display: grid;
@@ -59,678 +65,256 @@
         .hero-img { height: 350px; width: 90%; border-radius: 10px; }
         .hero-content { text-align: right; }
         .hero-content h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.1; }
-        .btn {
-            display: inline-block; padding: 10px 30px; border-radius: 20px;
-            margin: 5px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
         .btn-light { background-color: #add8e6; color: var(--dark-blue); }
-
-        /* Episode Cards */
-        .section-padding { padding: 60px 5%; }
-        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
         .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-
-        /* ── FEATURE 1: Card Hover Effect ── */
         .episode-card {
             background-color: var(--teal);
             padding: 20px;
             border-radius: 15px;
             cursor: pointer;
-            transition:
-                transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.25s ease;
-            will-change: transform;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
         }
-        .episode-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(44, 62, 80, 0.2);
-        }
-        .episode-card:active { transform: translateY(-4px) scale(1.01); }
-
-        .episode-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
-        .duration { font-size: 0.8rem; margin-bottom: 15px; display: block; }
-        .card-img { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 15px; overflow: hidden; position: relative; }
-        .btn-play {
-            background-color: var(--yellow);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.15s;
-        }
-        .btn-play:hover { background-color: #f5e840; transform: scale(1.05); }
-
-        /* Bio Section */
+        .episode-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(44, 62, 80, 0.2); }
         .bio-section { display: grid; grid-template-columns: 350px 1fr; gap: 50px; align-items: center; }
         .bio-img { width: 300px; height: 300px; border-radius: 50%; }
-        .bio-text p { margin-bottom: 15px; font-size: 1.1rem; }
-        .link-arrow { font-weight: 700; border-bottom: 2px solid var(--dark-blue); }
 
-        /* Mission Section */
-        .mission { text-align: center; max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
-        .mission h2 { font-size: 2rem; margin-bottom: 30px; }
-        .mission h4 { margin-bottom: 20px; font-style: italic; }
+        /* ── EPISODES PAGE (SCREENSHOT IMPLEMENTATION) ── */
+        .episodes-container { max-width: 1000px; margin: 0 auto; padding: 40px 5%; }
+        .page-header { margin-bottom: 40px; }
+        .page-header h1 { font-size: 2.5rem; color: #2c5e66; margin-bottom: 10px; }
+        .page-header p { color: #668b91; font-size: 1.1rem; }
 
-        /* Footer */
-        footer { background-color: var(--teal); padding: 30px; text-align: center; font-weight: 700; }
-
-        /* ── Page Switching ── */
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.3s ease both; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .nav-links a.nav-active { border-bottom: 2px solid var(--dark-blue); }
-
-        /* ── About Page ── */
-
-        /* The Problem */
-        .about-problem {
-            background-color: var(--teal);
-            padding: 50px 7%;
-        }
-        .about-problem h2 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: var(--dark-blue);
-        }
-        .about-problem p {
-            margin-bottom: 14px;
-            font-size: 1rem;
-            line-height: 1.7;
-            max-width: 820px;
-        }
-        .about-problem .tagline {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-top: 10px;
-        }
-
-        /* Mission */
-        .about-mission {
-            background-color: var(--light-bg);
-            padding: 50px 7%;
-        }
-        .about-mission h2 {
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            color: var(--dark-blue);
-        }
-        .about-mission-inner {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        .about-mission-logo {
-            width: 260px;
-            height: 260px;
-            border-radius: 12px;
-            object-fit: cover;
-            background-color: var(--yellow);
+        .episode-row {
+            background: white;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-family: var(--heading-font);
-            font-size: 2.2rem;
-            font-weight: 800;
-            text-align: center;
-            line-height: 1.1;
-            color: var(--dark-blue);
-            border: 2px solid rgba(0,0,0,0.08);
-            flex-shrink: 0;
+            gap: 25px;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
         }
-        .about-mission-text p {
-            margin-bottom: 16px;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        /* What You'll Gain */
-        .about-gain {
-            background-color: var(--teal);
-            padding: 50px 7%;
-        }
-        .about-gain h2 {
-            font-size: 1.6rem;
-            margin-bottom: 28px;
-            color: var(--dark-blue);
-        }
-        .about-gain-inner {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 50px;
-            align-items: center;
-        }
-        .about-gain-text p { margin-bottom: 14px; line-height: 1.7; font-size: 1rem; }
-        .about-gain-text ul {
-            margin: 14px 0 14px 20px;
-            line-height: 2;
-            font-size: 0.97rem;
-        }
-        .about-gain-img {
-            width: 320px;
-            height: 260px;
-            border-radius: 14px;
-            background-color: var(--yellow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-
-        /* Meet Dr. Sean Young — About version */
-        .about-bio {
-            background-color: var(--light-bg);
-            padding: 50px 7%;
-        }
-        .about-bio h2 {
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            color: var(--dark-blue);
-        }
-        .about-bio-inner {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-        .about-bio-photo {
-            width: 240px;
-            height: 260px;
-            border-radius: 12px;
-            object-fit: cover;
-            background-color: #bcd1d4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.1);
-            flex-shrink: 0;
-        }
-        .about-bio-text p { margin-bottom: 14px; line-height: 1.7; font-size: 1rem; }
-        .about-bio-text .link-arrow { margin-top: 6px; display: inline-block; }
-
-        /* Responsive About */
-        @media (max-width: 768px) {
-            .about-mission-inner,
-            .about-gain-inner,
-            .about-bio-inner { grid-template-columns: 1fr; }
-            .about-mission-logo,
-            .about-gain-img,
-            .about-bio-photo { width: 100%; }
-            .about-mission-logo { height: 200px; }
-        }
-
-        /* ── FEATURE 2: Subscribe Modal ── */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(13, 130, 176, 0.55);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-overlay.active { display: flex; }
-
-        .modal-box {
-            background: var(--yellow);
-            border-radius: 20px;
-            padding: 48px 40px 40px;
-            width: min(460px, 90vw);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-            position: relative;
-            animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.85) translateY(20px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 14px; right: 18px;
-            background: none; border: none;
-            font-size: 1.4rem; cursor: pointer;
-            color: #aaa; line-height: 1;
-            transition: color 0.2s;
-        }
-        .modal-close:hover { color: var(--dark-blue); }
-
-        .modal-box h3 {
-            font-family: var(--heading-font);
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            color: var(--dark-blue);
-        }
-        .modal-box p { color: #666; margin-bottom: 24px; font-size: 0.95rem; }
-
-        .email-input-wrap { display: flex; flex-direction: column; gap: 10px; }
-        .email-input-wrap input[type="email"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #cde4e9;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: var(--body-font);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .email-input-wrap input[type="email"]:focus { border-color: var(--teal); }
-        .email-input-wrap input[type="email"].error { border-color: #e74c3c; }
-
-        .error-msg { color: #e74c3c; font-size: 0.85rem; display: none; }
-        .error-msg.visible { display: block; }
-
-        .btn-subscribe {
-            background-color: #0d82b0;
+        .episode-row:hover { transform: scale(1.01); }
+        .row-img { width: 100px; height: 100px; border-radius: 8px; flex-shrink: 0; }
+        .row-content { flex-grow: 1; }
+        .row-content h3 { color: #2c5e66; font-size: 1.3rem; margin-bottom: 8px; }
+        .row-content p { color: #7f8c8d; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; }
+        .row-duration { color: #95a5a6; font-size: 0.85rem; font-weight: 600; }
+        
+        .btn-listen {
+            background-color: var(--btn-blue);
             color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-family: var(--heading-font);
-            font-size: 1rem;
+            padding: 12px 24px;
+            border-radius: 5px;
             font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.15s;
         }
-        .btn-subscribe:hover { background-color: #0a6d96; transform: translateY(-1px); }
 
-        /* Success state */
-        .modal-success {
-            display: none;
+        /* Newsletter Section */
+        .stay-updated {
+            background-color: #b3ced3;
+            border-radius: 15px;
+            padding: 60px;
             text-align: center;
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            margin-top: 60px;
         }
-        .modal-success.visible { display: block; }
-        .success-icon {
-            font-size: 3.5rem;
-            margin-bottom: 16px;
-            animation: bounceIn 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        .stay-updated h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .stay-updated p { margin-bottom: 30px; color: #5d7d82; max-width: 600px; margin-inline: auto; }
+        .input-group { display: flex; justify-content: center; gap: 10px; max-width: 500px; margin: 0 auto; }
+        .input-group input { 
+            flex-grow: 1; padding: 15px; border: 1px solid #9dbabc; border-radius: 8px; outline: none;
         }
-        @keyframes bounceIn {
-            from { transform: scale(0); opacity: 0; }
-            to   { transform: scale(1); opacity: 1; }
-        }
-        .modal-success h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--dark-blue); }
-        .modal-success p { color: #555; }
+        .btn-sub-alt { background-color: var(--btn-blue); color: white; padding: 0 30px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; }
 
-        /* ── FEATURE 3: YouTube Miniplayer ── */
-        .yt-player-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(6px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+        /* Modals & Players (Kept from original) */
+        .modal-overlay, .yt-player-backdrop {
+            display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center;
         }
-        .yt-player-backdrop.active { display: flex; }
-
-        .yt-player-container {
-            background: #1a1a2e;
-            border-radius: 18px;
-            overflow: hidden;
-            width: min(700px, 92vw);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
-            animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-
-        .yt-player-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 18px;
-            background: #111120;
-        }
-        .yt-player-title {
-            color: white;
-            font-family: var(--heading-font);
-            font-size: 0.95rem;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 80%;
-        }
-        .yt-player-close {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 50%;
-            width: 32px; height: 32px;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-        .yt-player-close:hover { background: rgba(255,255,255,0.25); }
-
-        .yt-iframe-wrap {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 */
-        }
-        .yt-iframe-wrap iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Responsive */
+        .modal-overlay.active, .yt-player-backdrop.active { display: flex; }
+        .yt-player-container { background: #1a1a2e; border-radius: 18px; width: min(700px, 92vw); overflow: hidden; }
+        .yt-iframe-wrap { position: relative; padding-top: 56.25%; }
+        .yt-iframe-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        
         @media (max-width: 768px) {
-            .hero, .episodes-grid, .bio-section { grid-template-columns: 1fr; text-align: center; }
-            .hero-content { text-align: center; margin-top: 20px; }
-            .nav-links { display: none; }
+            .episode-row { flex-direction: column; text-align: center; }
+            .hero, .bio-section, .episodes-grid { grid-template-columns: 1fr; text-align: center; }
+            .input-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="nav-logo">The Young and Hungry Podcast</div>
+        <div class="nav-logo">Dr. Young Podcast</div>
         <ul class="nav-links">
             <li><a href="#" class="nav-link nav-active" data-page="home">Home</a></li>
             <li><a href="#" class="nav-link" data-page="about">About</a></li>
-            <li><a href="#" class="nav-link" data-page="home">Episodes</a></li>
+            <li><a href="#" class="nav-link" data-page="episodes">Episodes</a></li>
             <li><a href="#" class="nav-link subscribe-trigger">Subscribe</a></li>
         </ul>
     </nav>
 
-    <!-- ══ HOME PAGE ══ -->
     <div id="page-home" class="page active">
-
-    <section class="hero">
-        <img src="podcastHomePage.png" alt="Child using computer" class="hero-img" style="object-fit: cover;">
-        <div class="hero-content">
-            <h1>Teaching Kids To Excel in a World with AI</h1>
-            <a href="#" class="btn btn-light subscribe-trigger">Join the Waitlist</a><br>
-            
-        </div>
-    </section>
-
-    <section class="section-padding">
-        <div class="section-header">
-            <h2>Check Out What's New!</h2>
-            <p style="opacity: 0.5; font-size: 2rem; font-weight: 700;">Episode Cards</p>
-        </div>
-        <div class="episodes-grid">
-            <!-- Each card has data-video-id pointing to a YouTube video ID -->
-            <div class="episode-card" data-video-id="t_5HwjlZIl8" data-title="Raising AI-Ready Kids">
-                <h3>Raising AI-Ready Kids</h3>
-                <span class="duration">27 min</span>
-                <img src="podcastEp1.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
-                <button class="btn-play">▶ Listen Now</button>
+        <section class="hero">
+            <img src="podcastHomePage.png" alt="Child using computer" class="hero-img" style="object-fit: cover;">
+            <div class="hero-content">
+                <h1>Teaching Kids To Excel in a World with AI</h1>
+                <a href="#" class="btn btn-light subscribe-trigger">Join the Waitlist</a>
             </div>
-            <div class="episode-card" data-video-id="oV6HWzzeD-I" data-title="AI Tools in Schools: Help or Harm?">
-                <h3>AI Tools in Schools: Help or Harm?</h3>
-                <span class="duration">16 min</span>
-                <img src="podcastEp2.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
-                <button class="btn-play">▶ Listen Now</button>
+        </section>
+
+        <section class="section-padding">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+                <h2>Check Out What's New!</h2>
+                <a href="#" class="nav-link" data-page="episodes" style="font-weight: 700; border-bottom: 2px solid var(--dark-blue);">View All &rarr;</a>
             </div>
-            <div class="episode-card" data-video-id="hJP5GqnTrNo" data-title="Teaching Kids Responsible AI Use">
-                <h3>Teaching Kids Responsible AI Use</h3>
-                <span class="duration">15 min</span>
-                <img src="podcastEp3.png" alt="Episode artwork" class="card-img" style="object-fit: cover;">
-                <button class="btn-play">▶ Listen Now</button>
+            <div class="episodes-grid">
+                <div class="episode-card" data-video-id="t_5HwjlZIl8" data-title="Raising AI-Ready Kids">
+                    <h3>Raising AI-Ready Kids</h3>
+                    <span class="duration">27 min</span>
+                    <img src="podcastEp1.png" alt="artwork" class="card-img" style="width:100%; height:150px; border-radius:10px; object-fit: cover; margin-top:15px;">
+                </div>
+                <div class="episode-card" data-video-id="oV6HWzzeD-I" data-title="AI Tools in Schools">
+                    <h3>AI Tools in Schools</h3>
+                    <span class="duration">16 min</span>
+                    <img src="podcastEp2.png" alt="artwork" class="card-img" style="width:100%; height:150px; border-radius:10px; object-fit: cover; margin-top:15px;">
+                </div>
+                <div class="episode-card" data-video-id="hJP5GqnTrNo" data-title="Responsible AI Use">
+                    <h3>Responsible AI Use</h3>
+                    <span class="duration">15 min</span>
+                    <img src="podcastEp3.png" alt="artwork" class="card-img" style="width:100%; height:150px; border-radius:10px; object-fit: cover; margin-top:15px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bio-section">
+            <img src="ProfYoung.png" alt="Dr.Young" class="bio-img" style="object-fit: cover;">
+            <div class="bio-text">
+                <h2>Meet Dr. Sean D. Young</h2>
+                <p>Dr. Sean D. Young is a UC Irvine professor and Stanford-trained psychologist who researches how AI and digital technology shape behavior and learning.</p>
+                <a href="#" class="nav-link" data-page="about" style="font-weight:700; border-bottom: 2px solid var(--dark-blue);">Read Full Bio &rarr;</a>
+            </div>
+        </section>
+    </div>
+
+    <div id="page-episodes" class="page">
+        <div class="episodes-container">
+            <div class="page-header">
+                <h1>Podcast Episodes</h1>
+                <p>Explore conversations about preparing youth for an AI-driven future.</p>
+            </div>
+
+            <div class="episode-row" data-video-id="t_5HwjlZIl8" data-title="Helping Children Understand AI">
+                <img src="podcastEp1.png" alt="ep1" class="row-img">
+                <div class="row-content">
+                    <h3>Helping Children Understand AI</h3>
+                    <p>An introduction to talking with kids about artificial intelligence in age-appropriate ways that build curiosity rather than fear.</p>
+                    <span class="row-duration">42 min</span>
+                </div>
+                <button class="btn-listen">▶ Listen Now</button>
+            </div>
+
+            <div class="episode-row" data-video-id="oV6HWzzeD-I" data-title="Reducing Fear Around AI">
+                <img src="podcastEp2.png" alt="ep2" class="row-img">
+                <div class="row-content">
+                    <h3>Reducing Fear Around Artificial Intelligence</h3>
+                    <p>Practical strategies for parents and educators to address common concerns about AI technology and help students develop a balanced perspective.</p>
+                    <span class="row-duration">38 min</span>
+                </div>
+                <button class="btn-listen">▶ Listen Now</button>
+            </div>
+
+            <div class="episode-row" data-video-id="hJP5GqnTrNo" data-title="AI in Education">
+                <img src="podcastEp3.png" alt="ep3" class="row-img">
+                <div class="row-content">
+                    <h3>AI in Education: What Parents Should Know</h3>
+                    <p>Understanding how AI is being used in classrooms today and what questions parents should ask about their child's tech-enhanced learning experience.</p>
+                    <span class="row-duration">45 min</span>
+                </div>
+                <button class="btn-listen">▶ Listen Now</button>
+            </div>
+
+            <div class="episode-row" data-video-id="oV6HWzzeD-I" data-title="Healthy AI Habits">
+                <img src="podcastEp2.png" alt="ep4" class="row-img">
+                <div class="row-content">
+                    <h3>Building Healthy AI Habits for Students</h3>
+                    <p>Teaching critical thinking skills and responsible technology use as young people navigate an increasingly AI-integrated world.</p>
+                    <span class="row-duration">51 min</span>
+                </div>
+                <button class="btn-listen">▶ Listen Now</button>
+            </div>
+
+            <div class="stay-updated">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter to be notified when new episodes are released and receive exclusive content about AI literacy for youth.</p>
+                <div class="input-group">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="btn-sub-alt">Subscribe</button>
+                </div>
             </div>
         </div>
-        <p style="text-align: right; margin-top: 20px;">
-            <a href="#" class="link-arrow">View all Episodes &rarr;</a>
-        </p>
-    </section>
+    </div>
 
-    <section class="section-padding bio-section">
-        <img src="ProfYoung.png" alt="Dr.Young Bio Image" class="bio-img" style="object-fit: cover;">
-        <div class="bio-text">
-            <h2>Meet Dr. Sean D. Young</h2>
-            <p>
-                Dr. Sean D. Young is a UC Irvine professor and <strong>Stanford-trained psychologist</strong> who researches how AI and digital technology shape behavior and learning. He has published over <strong>150 scientific papers</strong> and authored a <strong>#1 Wall Street Journal bestselling book</strong> on behavior change. His work helps parents and educators make informed, practical decisions about technology and children.
-            </p>
-            <a href="#" class="link-arrow">Read Full Bio &rarr;</a>
-        </div>
-    </section>
-
-    <section class="section-padding mission">
-        <h2>AI is changing childhood faster than most adults feel prepared for.</h2>
-        <h4>We Help You Navigate It With Confidence</h4>
-        <p>Aiming to teach parents and educators how to confidently guide children through the age of AI by translating psychology and research into practical, everyday tools. Each episode delivers clear insights and real strategies to support healthy, responsible, and future-ready technology use.</p>
-    </section>
-
-    </div><!-- end #page-home -->
-
-    <!-- ══ ABOUT PAGE ══ -->
     <div id="page-about" class="page">
-
-        <!-- The Problem -->
-        <section class="about-problem">
-    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: center;">
-        <div>
-            <h2>The Problem</h2>
-           <p>Artificial intelligence is already part of students' everyday lives, but most parents and teachers haven't been given clear, practical guidance on how to talk about it, teach it, or use it responsibly. As a result, many families feel uncertain, overwhelmed, or even fearful about what AI means for their children's future.</p>
-            <p>Many parents and educators worry AI will replace skills, reduce critical thinking, or create unfair advantages, but few are shown how AI can actually support learning, creativity, and growth when used the right way. There is a growing gap between how quickly AI is advancing and how prepared families feel to guide children through it. What's missing isn't access, it's understanding, practical strategies, and age-appropriate direction.</p>
-            <p class="tagline">That gap is exactly what the Young and Hungry Podcast was created to close.</p>
-        </div>
-        <img src="podcastLogo.png" alt="The Problem" class= "bio-img" style = "object-fit: cover;">
-    </div>
-</section>
-
-        <!-- Our Mission -->
-        <section class="about-mission">
-            <h2>Our Mission</h2>
-            <div class="about-mission-inner">
-                <img src="podcastLogo.png" alt="Podcast Logo 'Young and Hungry" class="bio-img" style="object-fit: cover;" border-radius: 50%;">
-                <div class="about-mission-text">
-                    <p>Through the Young and Hungry Podcast we aim to help guide parents and educators on how to navigate the new age of A.I. with clarity and confidence.</p>
-                    <p>Each episode is designed to translate complex AI concepts into simple, real-world strategies that support learning, creativity, and responsible use. The goal is not just awareness, it's action. We aim to equip adults to guide children in using AI thoughtfully, ethically, and productively as part of their everyday education and growth.</p>
-                </div>
-            </div>
+        <section class="section-padding">
+            <h2>About Dr. Sean Young</h2>
+            <p style="margin-top:20px; line-height:1.6;">Full bio content goes here...</p>
         </section>
-
-        <!-- What You'll Gain -->
-        <section class="about-gain">
-            <h2>What You'll Gain From the Podcast</h2>
-            <div class="about-gain-inner">
-                <div class="about-gain-text">
-                    <p>Listeners will walk away with practical tools and clear next steps, not just theory. Episodes focus on real applications and real conversations families can have today.</p>
-                    <p>Through the podcast, you'll learn how to:</p>
-                    <ul>
-                        <li>Explain AI to kids in age-appropriate ways</li>
-                        <li>Turn AI tools into learning partners instead of shortcuts</li>
-                        <li>Build healthy and responsible AI habits</li>
-                        <li>Encourage curiosity, creativity, and critical thinking</li>
-                        <li>Support students using AI for school and projects</li>
-                        <li>Reduce fear and replace it with understanding and confidence</li>
-                    </ul>
-                    <p>Each conversation connects psychology, behavior science, and modern technology to everyday parenting and teaching decisions.</p>
-                </div>
-                <img src="aiFamily.png" alt="Family art picture" class="card-img" style="object-fit: contain;" transform: scale(55);">
-            </div>
-        </section>
-
-        <!-- Meet Dr. Sean Young -->
-        <section class="about-bio">
-            <h2>Meet Dr. Sean Young</h2>
-            <div class="about-bio-inner">
-                <img src="ProfYoung.png" alt="Dr. Young Bio Image" class="bio-img" style="object-fit: cover;">
-                <div class="about-bio-text">
-                    <p>Sean D. Young is a professor at the University of California, Irvine, with appointments in Emergency Medicine and Informatics &amp; Computer Sciences. A trained psychologist and researcher, he studies how people build habits and use technology — including AI — in healthy, effective ways.</p>
-                    <p>He holds a Ph.D. in Psychology from Stanford University and has published more than 150 scientific papers on technology, behavior, and digital health. He is also the author of <em>Stick with It</em>, a #1 Wall Street Journal and international bestselling book on lasting behavior change.</p>
-                    <p>Dr. Young brings trusted, research-based guidance to parents and educators, turning complex science into practical strategies they can confidently use with students and children.</p>
-                    <a href="#" class="link-arrow">Learn more about Dr. Sean Young &rarr;</a>
-                </div>
-            </div>
-        </section>
-
-    </div><!-- end #page-about -->
-
-    <footer>
-        <a href="https://www.instagram.com/youngandhungryk_12" target="_blank" rel="noopener noreferrer">
-            Follow The Young &amp; Hungry Podcast on Instagram for the latest updates &rarr;</a>
-    </footer>
-
-    <!-- ── FEATURE 2: Subscribe Modal ── -->
-    <div class="modal-overlay" id="subscribeModal" role="dialog" aria-modal="true" aria-label="Subscribe">
-        <div class="modal-box">
-            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-
-            <!-- Form state -->
-            <div id="modalForm">
-                <h3>Stay in the Loop 🎙️</h3>
-                <p>Get new episodes and AI parenting insights delivered straight to your inbox.</p>
-                <div class="email-input-wrap">
-                    <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email" />
-                    <span class="error-msg" id="emailError">Please enter a valid email address.</span>
-                    <button class="btn-subscribe" id="submitEmail">Subscribe Now</button>
-                </div>
-            </div>
-
-            <!-- Success state -->
-            <div class="modal-success" id="modalSuccess">
-                <div class="success-icon">🎉</div>
-                <h3>You're subscribed!</h3>
-                <p>Welcome to the community. You'll hear from us when new episodes drop.</p>
-            </div>
-        </div>
     </div>
 
-    <!-- ── FEATURE 3: YouTube Miniplayer ── -->
     <div class="yt-player-backdrop" id="ytBackdrop">
         <div class="yt-player-container">
-            <div class="yt-player-header">
-                <span class="yt-player-title" id="ytTitle">Episode</span>
-                <button class="yt-player-close" id="ytClose" aria-label="Close player">&times;</button>
+            <div style="padding:15px; color:white; display:flex; justify-content:space-between; background:#111120;">
+                <span id="ytTitle">Episode</span>
+                <button id="ytClose" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">&times;</button>
             </div>
             <div class="yt-iframe-wrap">
-                <iframe
-                    id="ytIframe"
-                    src=""
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <iframe id="ytIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
     <script>
-        /* ── Page Navigation ── */
+        // Navigation Logic
         document.querySelectorAll('.nav-link[data-page]').forEach(link => {
             link.addEventListener('click', e => {
                 e.preventDefault();
                 const target = link.dataset.page;
-
-                // Show/hide pages
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                 document.getElementById('page-' + target).classList.add('active');
-
-                // Update active nav state
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
-                // Mark all links pointing to this page
                 document.querySelectorAll(`.nav-link[data-page="${target}"]`).forEach(l => l.classList.add('nav-active'));
-
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        /* ── Subscribe Modal ── */
-        const modal       = document.getElementById('subscribeModal');
-        const modalClose  = document.getElementById('modalClose');
-        const emailInput  = document.getElementById('emailInput');
-        const emailError  = document.getElementById('emailError');
-        const submitBtn   = document.getElementById('submitEmail');
-        const modalForm   = document.getElementById('modalForm');
-        const modalSuccess= document.getElementById('modalSuccess');
-
-        function openModal() {
-            // Reset to form state each time
-            modalForm.style.display = 'block';
-            modalSuccess.classList.remove('visible');
-            emailInput.value = '';
-            emailInput.classList.remove('error');
-            emailError.classList.remove('visible');
-            modal.classList.add('active');
-            setTimeout(() => emailInput.focus(), 100);
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-
-        // Trigger: nav "Subscribe" link + "Join the Waitlist" button
-        document.querySelectorAll('.subscribe-trigger').forEach(el => {
-            el.addEventListener('click', e => { e.preventDefault(); openModal(); });
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-        function isValidEmail(v) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-        }
-
-        submitBtn.addEventListener('click', () => {
-            if (!isValidEmail(emailInput.value)) {
-                emailInput.classList.add('error');
-                emailError.classList.add('visible');
-                emailInput.focus();
-                return;
-            }
-            // Valid email → show success
-            modalForm.style.display = 'none';
-            modalSuccess.classList.add('visible');
-        });
-
-        emailInput.addEventListener('input', () => {
-            emailInput.classList.remove('error');
-            emailError.classList.remove('visible');
-        });
-
-        emailInput.addEventListener('keydown', e => {
-            if (e.key === 'Enter') submitBtn.click();
-        });
-
-        /* ── YouTube Miniplayer ── */
+        // Player Logic
         const ytBackdrop = document.getElementById('ytBackdrop');
         const ytIframe   = document.getElementById('ytIframe');
         const ytTitle    = document.getElementById('ytTitle');
-        const ytClose    = document.getElementById('ytClose');
 
-        function openPlayer(videoId, title) {
+        function openPlayer(id, title) {
             ytTitle.textContent = title;
-            ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            ytIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
             ytBackdrop.classList.add('active');
         }
 
-        function closePlayer() {
-            ytBackdrop.classList.remove('active');
-            ytIframe.src = ''; // stops video playback
-        }
-
-        document.querySelectorAll('.episode-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const videoId = card.dataset.videoId;
-                const title   = card.dataset.title;
-                if (videoId) openPlayer(videoId, title);
+        document.querySelectorAll('.episode-card, .episode-row').forEach(el => {
+            el.addEventListener('click', () => {
+                openPlayer(el.dataset.videoId, el.dataset.title);
             });
         });
 
-        ytClose.addEventListener('click', closePlayer);
-        ytBackdrop.addEventListener('click', e => { if (e.target === ytBackdrop) closePlayer(); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePlayer(); });
+        document.getElementById('ytClose').onclick = () => {
+            ytBackdrop.classList.remove('active');
+            ytIframe.src = '';
+        };
     </script>
-
 </body>
 </html>
