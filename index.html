@@ -458,6 +458,109 @@
     text-align: center; margin-top: 40px;
 }
 .stay-updated-alt input { padding: 12px; border: 1px solid #9dbabc; border-radius: 8px; width: 250px; margin-top: 80px; }
+      /* ── RESOURCES PAGE STYLES ── */
+        .resources-hero {
+            background-color: var(--light-bg);
+            padding: 50px 7%;
+        }
+        .resources-hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: center;
+        }
+        .resources-hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 18px;
+            color: var(--dark-blue);
+        }
+        .resources-hero p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--dark-blue);
+            max-width: 560px;
+        }
+        .resources-hero-img {
+            width: 260px;
+            height: 220px;
+            border-radius: 14px;
+            object-fit: contain;
+            background-color: var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 1px solid rgba(0,0,0,0.07);
+        }
+ 
+        .resources-literacy {
+            background-color: var(--teal);
+            padding: 50px 7%;
+        }
+        .resources-literacy h2 {
+            font-size: 1.6rem;
+            margin-bottom: 22px;
+            color: var(--dark-blue);
+        }
+        .resources-literacy p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            max-width: 860px;
+        }
+ 
+        .resources-topics {
+            background-color: var(--light-bg);
+            padding: 50px 7%;
+        }
+        .resources-topics h2 {
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            color: var(--dark-blue);
+        }
+ 
+        /* Tag / pill grid */
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .topic-tag {
+            background-color: var(--yellow);
+            color: var(--dark-blue);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-family: var(--body-font);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.18s ease,
+                        background-color 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .topic-tag:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+            background-color: #f5e840;
+        }
+        .topic-tag:active { transform: translateY(-1px) scale(1.01); }
+ 
+        .resources-educators {
+            background-color: var(--teal);
+            padding: 50px 7%;
+        }
+        .resources-educators h2 {
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            color: var(--dark-blue);
+        }
+ 
+        @media (max-width: 768px) {
+            .resources-hero-inner { grid-template-columns: 1fr; }
+            .resources-hero-img { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -467,6 +570,7 @@
         <ul class="nav-links">
     <li><a href="#" class="nav-link nav-active" data-page="home">Home</a></li>
     <li><a href="#" class="nav-link" data-page="about">About</a></li>
+    <li><a href="#" class="nav-link" data-page="resources">Resources</a></li>
     <li><a href="#" class="nav-link" data-page="episodes">Episodes</a></li> <li><a href="#" class="nav-link subscribe-trigger">Subscribe</a></li>
 </ul>
     </nav>
@@ -581,7 +685,7 @@
                     </ul>
                     <p>Each conversation connects psychology, behavior science, and modern technology to everyday parenting and teaching decisions.</p>
                 </div>
-                <img src="aiFamily.png" alt="Family art picture" class="card-img" style="object-fit: contain;" transform: scale(500);">
+                <img src="aiFamily.png" alt="Family art picture" class="card-img" style="object-fit: contain;" transform: scale(10000);">
             </div>
         </section>
 
@@ -627,6 +731,61 @@
     <footer>
         <a href="https://www.instagram.com/youngandhungryk_12" target="_blank" rel="noopener noreferrer>
             Follow The Young &amp; Hungry Podcast on Instagram for the latest updates &rarr; </a>
+    </footer>
+    <div id="page-resources" class="page">
+ 
+        <!-- Intro / Hero -->
+        <section class="resources-hero">
+            <div class="resources-hero-inner">
+                <div>
+                    <h1>Resources</h1>
+                    <p>Artificial intelligence is becoming an important part of education and everyday life. Here, we provide helpful resources to support parents, educators, and students who want to better understand AI and how it can be used responsibly for learning, creativity, and problem-solving.</p>
+                </div>
+                <img src="aiFamily.png" alt="AI and family illustration" class="resources-hero-img" style="object-fit: contain;">
+            </div>
+        </section>
+ 
+        <!-- Why AI Literacy Matters -->
+        <section class="resources-literacy">
+            <h2>Why AI Literacy Matters</h2>
+            <p>As AI tools become more common in schools and daily life, it is important that students learn how to use them responsibly and thoughtfully. Understanding AI helps children develop critical thinking skills, creativity, and digital literacy.</p>
+            <p>Rather than replacing learning, AI can support it when students are guided by parents and educators who understand how these tools work.</p>
+            <p>Teaching children how to use AI responsibly today can help prepare them for the careers, technologies, and challenges of tomorrow.</p>
+        </section>
+ 
+        <!-- Helpful Topics for Parents -->
+        <section class="resources-topics">
+            <h2>Helpful Topics for Parents</h2>
+            <div class="topic-tags">
+                <button class="topic-tag" data-video-id="t_5HwjlZIl8" data-title="How to talk to kids about artificial intelligence">How to talk to kids about artificial intelligence</button>
+                <button class="topic-tag" data-video-id="oV6HWzzeD-I" data-title="Encouraging responsible AI use at home">Encouraging responsible AI use at home</button>
+                <button class="topic-tag" data-video-id="hJP5GqnTrNo" data-title="How to think critically about AI-generated content">How to think critically about AI-generated content</button>
+                <button class="topic-tag" data-video-id="t_5HwjlZIl8" data-title="Supporting curiosity and creativity with AI tools">Supporting curiosity and creativity with AI tools</button>
+                <button class="topic-tag" data-video-id="oV6HWzzeD-I" data-title="Setting healthy technology habits">Setting healthy technology habits</button>
+                <button class="topic-tag" data-video-id="hJP5GqnTrNo" data-title="Balancing screen time and AI learning">Balancing screen time and AI learning</button>
+            </div>
+        </section>
+ 
+        <!-- Helpful Resources for Educators -->
+        <section class="resources-educators">
+            <h2>Helpful Resources for Educators</h2>
+            <div class="topic-tags">
+                <button class="topic-tag" data-video-id="t_5HwjlZIl8" data-title="Introducing AI concepts in age-appropriate ways">Introducing AI concepts in age-appropriate ways</button>
+                <button class="topic-tag" data-video-id="oV6HWzzeD-I" data-title="Using AI as a learning tool">Using AI as a learning tool</button>
+                <button class="topic-tag" data-video-id="hJP5GqnTrNo" data-title="Practicing responsible technology use">Practicing responsible technology use</button>
+                <button class="topic-tag" data-video-id="t_5HwjlZIl8" data-title="Creating assignments that promote creativity">Creating assignments that promote creativity</button>
+                <button class="topic-tag" data-video-id="oV6HWzzeD-I" data-title="Helping students understand the limitations of AI">Helping students understand the limitations of AI</button>
+                <button class="topic-tag" data-video-id="hJP5GqnTrNo" data-title="AI and Ethics">AI and Ethics</button>
+            </div>
+        </section>
+ 
+    </div><!-- end #page-resources -->
+ 
+ 
+    <footer>
+        <a href="https://www.instagram.com/youngandhungryk_12" target="_blank" rel="noopener noreferrer">
+            Follow The Young &amp; Hungry Podcast on Instagram for the latest updates &rarr;
+        </a>
     </footer>
 
     <!-- ── FEATURE 2: Subscribe Modal ── -->
@@ -824,6 +983,14 @@ if (episodesSubBtn && subModal) {
         }
     });
 }
+        / ── Resources page: topic tag buttons open the YouTube player ──
+        document.querySelectorAll('.topic-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const videoId = tag.dataset.videoId;
+                const title   = tag.dataset.title;
+                if (videoId) openPlayer(videoId, title);
+            });
+        });
     </script>
 
 </body>
